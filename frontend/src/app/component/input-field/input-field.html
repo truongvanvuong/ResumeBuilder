@@ -1,0 +1,39 @@
+<div class="flex flex-col gap-4 my-input">
+  <label [for]="name" class="text-[16px] text-slate-900">{{ label }}</label>
+  <!-- Nếu là password thì dùng p-password -->
+  @if (type === 'password') {
+  <p-password
+    fluid
+    [toggleMask]="true"
+    [feedback]="false"
+    variant="filled"
+    [attr.id]="name"
+    [attr.name]="name"
+    [required]="required"
+    [(ngModel)]="value"
+    (onBlur)="markAsTouched()"
+    (ngModelChange)="onChange($event)"
+    [invalid]="!value && (touched || submitted)"
+    [placeholder]="placeholder"
+  />
+  } @else {
+  <input
+    pInputText
+    variant="filled"
+    [type]="type"
+    [attr.id]="name"
+    [attr.name]="name"
+    [required]="required"
+    [(ngModel)]="value"
+    (ngModelChange)="onChange($event)"
+    (blur)="markAsTouched()"
+    [disabled]="disabled"
+    [placeholder]="placeholder"
+    [invalid]="!value && (touched || submitted)"
+  />
+  } @if (!value && (touched || submitted)) {
+  <p-message severity="error" size="small" variant="simple">
+    {{ label || 'This field' }} is required
+  </p-message>
+  }
+</div>

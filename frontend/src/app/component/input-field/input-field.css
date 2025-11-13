@@ -1,0 +1,5 @@
+.my-input {
+  --p-inputtext-border-radius: 2px;
+  --p-inputtext-focus-border-color: oklch(62.7% 0.265 303.9);
+  --p-inputtext-color: #020618;
+}

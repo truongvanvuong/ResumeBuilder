@@ -1,0 +1,16 @@
+.my-input {
+  --p-inputtext-border-radius: 2px;
+  --p-inputtext-focus-border-color: oklch(62.7% 0.265 303.9);
+  --p-inputtext-color: #020618;
+}
+.my-button {
+  --p-button-primary-hover-background: oklch(72.7% 0.119 306.383);
+  --p-button-primary-hover-border-color: oklch(82.7% 0.119 306.383);
+  --p-button-primary-active-background: oklch(78.7% 0.119 306.383);
+  --p-button-primary-active-border-color: oklch(82.7% 0.119 306.383);
+}
+
+.my-button-link {
+  --p-button-padding-x: 0;
+  --p-button-padding-y: 0;
+}

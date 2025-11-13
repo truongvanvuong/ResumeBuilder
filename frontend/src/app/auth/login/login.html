@@ -1,0 +1,33 @@
+<div>
+  <span class="text-md text-slate-800">Please enter your details to login</span>
+  <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" class="my-6 flex flex-col">
+    <div class="flex flex-col gap-4 my-input">
+      <app-input-field
+        label="Email"
+        name="email"
+        type="email"
+        placeholder="Enter your email"
+        [required]="true"
+        [(ngModel)]="user.email"
+        [submitted]="loginForm.submitted"
+      ></app-input-field>
+
+      <app-input-field
+        label="Password"
+        name="password"
+        type="password"
+        placeholder="Enter your password"
+        [required]="true"
+        [(ngModel)]="user.password"
+        [submitted]="loginForm.submitted"
+      ></app-input-field>
+    </div>
+    <div class="card flex justify-center mt-5 my-button">
+      <p-button label="Login" fluid type="submit" class="w-full" />
+    </div>
+  </form>
+  <div class="flex items-center justify-center gap-1 my-button-link">
+    <p>Don't have an account?</p>
+    <p-button label="SignUp" link (onClick)="onSignupClick()" />
+  </div>
+</div>
