@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Home } from './pages/home/home';
+import { Toast } from 'primeng/toast';
+
+import { Header } from '../app/layouts/header/header';
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Home],
+  imports: [RouterOutlet, Toast, Header],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

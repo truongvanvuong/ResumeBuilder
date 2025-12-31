@@ -1,15 +1,5 @@
 <div class="w-full min-h-full bg-white">
-  <div class="container mx-auto px-4 py-6">
-    <header class="flex justify-between items-center mb-16">
-      <div class="text-xl font-bold">Resume Builder</div>
-      <button
-        (click)="openLogin()"
-        class="bg-purple-100 text-sm font-semibold text-black px-7 py-2.5 rounded-lg hover:bg-gray-800 hover:text-white transition-colors cursor-pointer"
-      >
-        Login
-      </button>
-    </header>
-
+  <div>
     <!-- Hero content -->
     <div class="flex flex-col md:flex-row items-center">
       <div class="w-full md:w-1/2 pr-4 mb-8 md:mb-0">
@@ -31,7 +21,14 @@
         </button>
       </div>
       <div class="w-full md:w-1/2">
-        <img src="assets/Herro_img.png" alt="Hero Image" class="w-full rounded-lg" />
+        <img
+          ngSrc="assets/Herro_img.png"
+          width="1679"
+          priority
+          height="780"
+          alt="Hero Image"
+          class="w-full object-cover rounded-lg"
+        />
       </div>
     </div>
 
@@ -64,7 +61,7 @@
   </div>
   <div class="my-dialog">
     <p-dialog
-      header="Login"
+      [header]="titleModal"
       [modal]="true"
       [(visible)]="visible"
       (onHide)="handleCloseDialog()"
@@ -72,9 +69,17 @@
       focusOnShow="false"
     >
       @if (loginVisible){
-      <app-login (signupClicked)="switchToSignup()"></app-login>
+      <app-login
+        #loginRef
+        (signupClicked)="switchToSignup()"
+        (loginCloseDialog)="onCloseDialog()"
+      ></app-login>
       } @if (signupVisible){
-      <app-signup></app-signup>
+      <app-signup
+        #signupRef
+        (loginClicked)="switchToLogin()"
+        (registeredCloseDialog)="onCloseDialog()"
+      ></app-signup>
       }
     </p-dialog>
   </div>

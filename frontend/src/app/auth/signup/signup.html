@@ -1,1 +1,72 @@
-<p>signup works!</p>
+<div>
+  <span class="text-md text-slate-800">Please enter information to register</span>
+  <form
+    #signupForm="ngForm"
+    (ngSubmit)="onSignup(signupForm)"
+    class="my-6 flex flex-col"
+    novalidate
+  >
+    <div class="flex flex-col gap-4 my-input overflow-y-auto max-h-[450px] overlay">
+      <app-input-field
+        label="Name"
+        name="name"
+        type="text"
+        placeholder="Enter your name"
+        [(ngModel)]="user.name"
+        #emailCtrl="ngModel"
+        [submitted]="isSubmitted"
+        [required]="true"
+      ></app-input-field>
+      <app-input-field
+        label="Email"
+        name="email"
+        type="email"
+        placeholder="Enter your email"
+        [(ngModel)]="user.email"
+        #emailCtrl="ngModel"
+        [submitted]="isSubmitted"
+        [required]="true"
+      ></app-input-field>
+
+      <app-input-field
+        label="Password"
+        name="password"
+        type="password"
+        placeholder="Enter your password"
+        [required]="true"
+        [(ngModel)]="user.password"
+        (ngModelChange)="handleOnchangePassword($event)"
+        #passwordCtrl="ngModel"
+        [submitted]="isSubmitted"
+        [minlength]="6"
+      ></app-input-field>
+      <app-input-field
+        label="Confirm password"
+        name="confirmPassword"
+        type="password"
+        placeholder="Enter your Confirm password"
+        [required]="true"
+        [(ngModel)]="user.confirmPassword"
+        (ngModelChange)="handleOnchangeconfirmPassword($event)"
+        #passwordCtrl="ngModel"
+        [submitted]="isSubmitted"
+        [minlength]="6"
+        [messageError]="messageError"
+      ></app-input-field>
+    </div>
+    <div class="card flex justify-center mt-5 my-button">
+      <p-button
+        label="SIGNUP"
+        [loading]="isLoading"
+        [disabled]="isLoading"
+        fluid
+        type="submit"
+        class="w-full"
+      />
+    </div>
+  </form>
+  <div class="flex items-center justify-center gap-1 my-button-link">
+    <p>Already have an account?</p>
+    <p-button label="Login" link (onClick)="onLoginClick()" />
+  </div>
+</div>

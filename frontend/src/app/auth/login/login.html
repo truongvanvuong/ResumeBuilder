@@ -1,15 +1,16 @@
 <div>
   <span class="text-md text-slate-800">Please enter your details to login</span>
-  <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" class="my-6 flex flex-col">
+  <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" class="my-6 flex flex-col" novalidate>
     <div class="flex flex-col gap-4 my-input">
       <app-input-field
         label="Email"
         name="email"
         type="email"
         placeholder="Enter your email"
-        [required]="true"
         [(ngModel)]="user.email"
-        [submitted]="loginForm.submitted"
+        #emailCtrl="ngModel"
+        [submitted]="isSubmitted"
+        [required]="true"
       ></app-input-field>
 
       <app-input-field
@@ -19,11 +20,19 @@
         placeholder="Enter your password"
         [required]="true"
         [(ngModel)]="user.password"
-        [submitted]="loginForm.submitted"
+        #passwordCtrl="ngModel"
+        [submitted]="isSubmitted"
       ></app-input-field>
     </div>
     <div class="card flex justify-center mt-5 my-button">
-      <p-button label="Login" fluid type="submit" class="w-full" />
+      <p-button
+        label="LOGIN"
+        [loading]="isLoading"
+        [disabled]="isLoading"
+        fluid
+        type="submit"
+        class="w-full"
+      />
     </div>
   </form>
   <div class="flex items-center justify-center gap-1 my-button-link">

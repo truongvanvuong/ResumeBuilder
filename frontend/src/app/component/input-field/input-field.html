@@ -9,31 +9,32 @@
     variant="filled"
     [attr.id]="name"
     [attr.name]="name"
-    [required]="required"
     [(ngModel)]="value"
-    (onBlur)="markAsTouched()"
-    (ngModelChange)="onChange($event)"
-    [invalid]="!value && (touched || submitted)"
+    (ngModelChange)="handleInput($event)"
+    [disabled]="disabled"
     [placeholder]="placeholder"
+    (onBlur)="onBlur()"
+    [invalid]="isInvalid()"
+    [minlength]="minlength"
   />
   } @else {
   <input
     pInputText
+    fluid
+    [invalid]="isInvalid()"
     variant="filled"
     [type]="type"
     [attr.id]="name"
     [attr.name]="name"
-    [required]="required"
     [(ngModel)]="value"
-    (ngModelChange)="onChange($event)"
-    (blur)="markAsTouched()"
+    (ngModelChange)="handleInput($event)"
     [disabled]="disabled"
     [placeholder]="placeholder"
-    [invalid]="!value && (touched || submitted)"
+    (blur)="onBlur()"
   />
-  } @if (!value && (touched || submitted)) {
+  } @if(isInvalid()){
   <p-message severity="error" size="small" variant="simple">
-    {{ label || 'This field' }} is required
+    {{ getErrorMessage() }}
   </p-message>
   }
 </div>

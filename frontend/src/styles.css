@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 @import 'tailwindcss';
+@import 'primeicons/primeicons.css';
 
 @theme {
   --font-display: 'Urbanist', sans-serif;
@@ -20,6 +21,21 @@
   body {
     background-color: #fcfbfc;
     overflow-x: hidden;
+    overflow-y: overlay;
+  }
+  html *::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
+  }
+
+  html *::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(22, 24, 35, 0.06);
+  }
+
+  html *::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
   }
 }
 
@@ -63,8 +79,27 @@
 .form-input {
   @apply w-full text-sm text-black outline-none bg-white border border-slate-100 px-2.5 py-3 rounded-md mt-2 placeholder:text-gray-500 focus-within:border-purple-500;
 }
-
+.overlay {
+  overflow-y: overlay;
+  @apply px-2;
+}
 /* Dialog Primeng Styles */
 .p-dialog {
-  @apply w-[90vw] md:w-[33vw] p-7;
+  @apply w-[90vw] md:w-lg p-7;
+}
+.my-input {
+  --p-inputtext-border-radius: 2px;
+  --p-inputtext-focus-border-color: oklch(62.7% 0.265 303.9);
+  --p-inputtext-color: #020618;
+}
+.my-button {
+  --p-button-primary-hover-background: oklch(72.7% 0.119 306.383);
+  --p-button-primary-hover-border-color: oklch(82.7% 0.119 306.383);
+  --p-button-primary-active-background: oklch(78.7% 0.119 306.383);
+  --p-button-primary-active-border-color: oklch(82.7% 0.119 306.383);
+}
+
+.my-button-link {
+  --p-button-padding-x: 0;
+  --p-button-padding-y: 0;
 }

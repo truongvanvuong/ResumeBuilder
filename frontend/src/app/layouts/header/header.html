@@ -1,0 +1,44 @@
+<header>
+  <div class="flex justify-between items-center mb-16">
+    <div class="text-xl font-bold">Resume Builder</div>
+    <div>
+      @if(isLoggedIn && currentUser){
+      <div class="flex justify-center items-center">
+        <div>
+          <p-button
+            label="Dashboard"
+            link
+            routerLink="/dashboard"
+            variant="text"
+            severity="secondary"
+          />
+        </div>
+        <div class="mx-4">
+          <div class="w-[1px] h-6 bg-gray-300"></div>
+        </div>
+        <div class="flex justify-center items-center gap-3 px-3">
+          <div class="flex justify-center items-center gap-2.5">
+            <h2 class="text-[16px] font-bold text-gray-700">{{ currentUser.name }}</h2>
+            <p-avatar icon="pi pi-user" class="mr-2" size="large" shape="circle" />
+          </div>
+          <p-button
+            (onClick)="logout()"
+            label="Logout"
+            icon="pi pi-sign-in"
+            variant="outlined"
+            severity="danger"
+            size="small"
+          />
+        </div>
+      </div>
+      } @else{
+      <button
+        (click)="showDialog()"
+        class="bg-purple-100 text-sm font-semibold text-black px-7 py-2.5 rounded-lg hover:bg-gray-800 hover:text-white transition-colors cursor-pointer"
+      >
+        Login
+      </button>
+      }
+    </div>
+  </div>
+</header>
