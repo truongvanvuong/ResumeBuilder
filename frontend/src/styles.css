@@ -5,7 +5,10 @@
 @theme {
   --font-display: 'Urbanist', sans-serif;
   --breakpoint-3xl: 1920px;
-  --color-primary: #9328e7;
+  --color-primary: '#A855F7';
+  --color-primary-soft: '#F5EEFF';
+  --color-primary-hover: '#9333EA';
+  --color-accent-purple: '#C084FC';
 }
 
 :root {
@@ -102,4 +105,10 @@
 .my-button-link {
   --p-button-padding-x: 0;
   --p-button-padding-y: 0;
+}
+.p-popover:before {
+  @apply hidden;
+}
+.p-popover:after {
+  @apply hidden;
 }

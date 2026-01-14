@@ -26,7 +26,7 @@
     </div>
     <div class="card flex justify-center mt-5 my-button">
       <p-button
-        label="LOGIN"
+        [label]="isLoading ? 'Signing in...' : 'Login'"
         [loading]="isLoading"
         [disabled]="isLoading"
         fluid
@@ -37,6 +37,6 @@
   </form>
   <div class="flex items-center justify-center gap-1 my-button-link">
     <p>Don't have an account?</p>
-    <p-button label="SignUp" link (onClick)="onSignupClick()" />
+    <p-button label="Signup" link (onClick)="onSignupClick()" />
   </div>
 </div>

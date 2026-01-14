@@ -92,10 +92,11 @@ export class Signup {
             setTimeout(() => {
               this.isLoading = false;
               if (this.pendingToast) {
-                this.messageService.add({ ...this.pendingToast, life: 1000 });
+                this.messageService.add({ ...this.pendingToast, life: 600 });
                 // if registration was successful, notify parent to close modal
                 if (this.pendingSuccess) {
                   this.registeredCloseDialog.emit();
+                  this.resetForm();
                 }
                 this.pendingToast = null;
                 this.pendingSuccess = false;
@@ -111,7 +112,6 @@ export class Signup {
                 summary: 'Success',
                 detail: 'Create account successfully',
               };
-              this.resetForm();
               this.pendingSuccess = true;
             } else {
               this.pendingToast = {

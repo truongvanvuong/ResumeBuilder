@@ -56,10 +56,11 @@ export class Login {
             setTimeout(() => {
               this.isLoading = false;
               if (this.pendingToast) {
-                this.messageService.add({ ...this.pendingToast, life: 1200 });
+                this.messageService.add({ ...this.pendingToast, life: 600 });
                 // if registration was successful, notify parent to close modal
                 if (this.pendingSuccess) {
                   this.loginCloseDialog.emit();
+                  this.resetForm();
                 }
                 this.pendingToast = null;
                 this.pendingSuccess = false;
@@ -76,7 +77,6 @@ export class Login {
                 summary: 'Success',
                 detail: res?.message || 'Login successfully',
               };
-              this.resetForm();
               this.pendingSuccess = true;
             } else {
               console.log('Login failed:', res);

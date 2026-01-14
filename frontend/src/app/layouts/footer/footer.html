@@ -1,0 +1,75 @@
+<footer
+  class="px-6 md:px-20 py-20 border-t border-[#F3EBF9] dark:border-[#2D213D] bg-white dark:bg-[#0D0814]"
+>
+  <div class="container mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12">
+    <div class="col-span-2">
+      <div class="flex items-center gap-2 text-primary mb-6">
+        <div
+          class="size-8 bg-primary/10 text-primary rounded-lg flex items-center justify-center"
+        ></div>
+        <h2 class="text-[#1E1B24] dark:text-white text-lg font-bold leading-tight">CVBuilder</h2>
+      </div>
+      <p class="text-[#8C7A9E] dark:text-[#9A89A8] text-sm leading-relaxed max-w-xs mb-8">
+        Empowering professionals to advance their careers with AI-driven resume building tools that
+        work.
+      </p>
+      <div class="flex gap-4">
+        <a
+          class="size-10 rounded-xl bg-[#FBF9FD] dark:bg-[#1E1629] border border-[#F3EBF9] dark:border-[#342744] flex items-center justify-center text-[#8C7A9E] dark:text-[#9A89A8] hover:text-primary hover:border-primary/50 transition-all"
+          href="#"
+        >
+          <span class="pi pi-share-alt text-xl"></span>
+        </a>
+        <a
+          class="size-10 rounded-xl bg-[#FBF9FD] dark:bg-[#1E1629] border border-[#F3EBF9] dark:border-[#342744] flex items-center justify-center text-[#8C7A9E] dark:text-[#9A89A8] hover:text-primary hover:border-primary/50 transition-all"
+          href="#"
+        >
+          <span class="pi pi-envelope text-xl"></span>
+        </a>
+      </div>
+    </div>
+    <div class="flex flex-col gap-4">
+      <h4 class="text-[#1E1B24] dark:text-white font-bold text-sm tracking-wide">Product</h4>
+      @for (product of Products; track $index) {
+      <a
+        class="text-[#8C7A9E] dark:text-[#9A89A8] text-sm hover:text-primary transition-colors"
+        [routerLink]="product.link"
+        >{{ product.name }}</a
+      >
+      }
+    </div>
+    <div class="flex flex-col gap-4">
+      <h4 class="text-[#1E1B24] dark:text-white font-bold text-sm tracking-wide">Company</h4>
+      @for (company of Companys; track $index) {
+      <a
+        class="text-[#8C7A9E] dark:text-[#9A89A8] text-sm hover:text-primary transition-colors"
+        [routerLink]="company.link"
+        >{{ company.name }}</a
+      >
+
+      }
+    </div>
+    <div class="flex flex-col gap-4">
+      <h4 class="text-[#1E1B24] dark:text-white font-bold text-sm tracking-wide">Support</h4>
+      @for (support of Supports; track $index) {
+      <a
+        class="text-[#8C7A9E] dark:text-[#9A89A8] text-sm hover:text-primary transition-colors"
+        [routerLink]="support.link"
+        >{{ support.name }}</a
+      >
+
+      }
+    </div>
+  </div>
+  <div
+    class="container mx-auto mt-20 pt-8 border-t border-[#F3EBF9] dark:border-[#2D213D] flex flex-col md:flex-row justify-between items-center gap-4"
+  >
+    <p class="text-[#A798B7] text-xs">©{{ currentYear }} CVBuilder AI Inc. All rights reserved.</p>
+    <div class="flex items-center gap-6">
+      <div class="flex items-center gap-1 text-[#A798B7]">
+        <span class="pi pi-language text-sm"></span>
+        <span class="text-xs">English (US)</span>
+      </div>
+    </div>
+  </div>
+</footer>

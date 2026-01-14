@@ -34,6 +34,7 @@ const registerUser = async (req, res) => {
       message: "User created successfully",
       data: {
         id: user._id,
+        avatar: user.avatar,
         name: user.name,
         email: user.email,
         token: generateToken(user._id),
@@ -59,6 +60,7 @@ const loginUser = async (req, res) => {
         message: "Login successful",
         data: {
           id: user._id,
+          avatar: user.avatar,
           name: user.name,
           email: user.email,
           token: generateToken(user._id),

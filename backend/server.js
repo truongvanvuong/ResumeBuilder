@@ -24,7 +24,7 @@ app.use(express.json());
 
 //Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/resume", resumeRoutes);
+app.use("/api/resumes", resumeRoutes);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(

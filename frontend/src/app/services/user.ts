@@ -11,19 +11,20 @@ import { environment } from '../../environments/environment';
 })
 export class User {
   private apiUrl = environment.apiUrl;
-  private currentUserKey = 'currentUser';
-  private tokenKey = 'userToken';
   private currentUserSubject = new BehaviorSubject<CurrentUser | null>(this._loadCurrentUser());
   public currentUser$ = this.currentUserSubject.asObservable();
-  constructor(private http: HttpClient, private router: Router) {}
 
+  private currentUserKey = 'currentUser';
+  private tokenKey = 'userToken';
+
+  constructor(private http: HttpClient, private router: Router) {}
   register(user: UserRegister): Observable<ApiAuthResponse> {
     return this.http.post<ApiAuthResponse>(`${this.apiUrl}/auth/register`, user).pipe(
       tap((res) => {
-        const { id, name, email, token } = (res.data || {}) as any;
+        const { id, name, email, avatar, token } = (res.data || {}) as any;
         if (res.success && token) {
           this.setToken(token);
-          const currentUser: CurrentUser = { id, name, email };
+          const currentUser: CurrentUser = { id, name, email, avatar };
           this.setCurrentUser(currentUser);
         }
       })
@@ -32,10 +33,11 @@ export class User {
   login(user: UserLogin): Observable<ApiAuthResponse> {
     return this.http.post<ApiAuthResponse>(`${this.apiUrl}/auth/login`, user).pipe(
       tap((res) => {
-        const { id, name, email, token } = (res.data || {}) as any;
+        console.log('Login response:', res);
+        const { id, name, email, avatar, token } = (res.data || {}) as any;
         if (res.success && token) {
           this.setToken(token);
-          const currentUser: CurrentUser = { id, name, email };
+          const currentUser: CurrentUser = { id, name, email, avatar };
           this.setCurrentUser(currentUser);
         }
       })

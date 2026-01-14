@@ -21,6 +21,7 @@ export interface ApiAuthResponse {
 
 export interface CurrentUser {
   id: string;
+  avatar: string;
   name: string;
   email: string;
 }

@@ -1,7 +1,31 @@
 <div>
-  <div class="container mx-auto px-4 py-6">
-    <app-header></app-header>
+  <div>
+    <app-header (OpenDialog)="openLogin()"></app-header>
     <router-outlet></router-outlet>
   </div>
-  <p-toast />
+  <div class="my-dialog">
+    <p-dialog
+      [header]="titleModal"
+      [modal]="true"
+      [(visible)]="visible"
+      (onHide)="handleCloseDialog()"
+      position="center"
+      focusOnShow="false"
+    >
+      @if (loginVisible){
+      <app-login
+        #loginRef
+        (signupClicked)="switchToSignup()"
+        (loginCloseDialog)="onCloseDialog()"
+      ></app-login>
+      } @if (signupVisible){
+      <app-signup
+        #signupRef
+        (loginClicked)="switchToLogin()"
+        (registeredCloseDialog)="onCloseDialog()"
+      ></app-signup>
+      }
+    </p-dialog>
+  </div>
 </div>
+<p-toast />
