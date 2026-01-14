@@ -3,14 +3,13 @@ import { Subscription } from 'rxjs';
 
 import { Dialog } from 'primeng/dialog';
 
-import { InputField } from '../../component/input-field/input-field';
 import { Resumecard } from '../../component/resumecard/resumecard';
 import { Resume } from '../../services/resume';
 import { GetResumesResponse } from '../../types/Resumes';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [Resumecard, Dialog, InputField],
+  imports: [Resumecard, Dialog],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
