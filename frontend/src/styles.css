@@ -12,7 +12,7 @@
 }
 
 :root {
-  --color-primary: #9328e7;
+  --color-primary: #8954b3;
   --p-inputtext-border-color: var(--color-primary);
   --p-inputtext-focus-border-color: var(--color-primary);
 }
@@ -71,13 +71,13 @@
   @apply w-full flex justify-between gap-3 text-sm text-black bg-gray-50/50 rounded px-4 py-3 mb-4 mt-3 border border-gray-100 outline-none focus-within:border-purple-300;
 }
 .btn-primary {
-  @apply w-full text-sm font-medium text-white bg-black shadow-lg shadow-purple-600/5 p-[10px] rounded-md my-1 hover:bg-purple-600/15 hover:text-black cursor-pointer;
+  @apply w-full text-sm font-medium text-white bg-black shadow-lg shadow-purple-600/5 p-2.5 rounded-md my-1 hover:bg-purple-600/15 hover:text-black cursor-pointer;
 }
 .btn-small {
   @apply flex items-center gap-2 text-[13px] font-semibold text-white bg-linear-to-r from-purple-500/85 to-purple-700 px-5 py-1.5 rounded cursor-pointer;
 }
 .btn-small-light {
-  @apply flex items-center gap-2 text-[12px] font-semibold text-purple-800 bg-purple-600/15 border border-purple-50 hover:border-purple-400 px-3 py-1.5 cursor-pointer;
+  @apply flex items-center gap-2 text-[12px] font-semibold text-purple-700 transition-all rounded-sm bg-purple-600/15 border border-purple-50 hover:border-purple-400 px-3 py-1.5 cursor-pointer;
 }
 .form-input {
   @apply w-full text-sm text-black outline-none bg-white border border-slate-100 px-2.5 py-3 rounded-md mt-2 placeholder:text-gray-500 focus-within:border-purple-500;
@@ -100,6 +100,13 @@
   --p-button-primary-hover-border-color: oklch(82.7% 0.119 306.383);
   --p-button-primary-active-background: oklch(78.7% 0.119 306.383);
   --p-button-primary-active-border-color: oklch(82.7% 0.119 306.383);
+}
+
+.my-dialog {
+  --p-dialog-header-padding: 0;
+  --p-dialog-content-padding: 0;
+  --p-dialog-title-font-weight: 700;
+  --p-dialog-title-font-size: 1.6rem;
 }
 
 .my-button-link {

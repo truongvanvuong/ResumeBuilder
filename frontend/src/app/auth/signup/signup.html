@@ -6,14 +6,13 @@
     class="my-6 flex flex-col"
     novalidate
   >
-    <div class="flex flex-col gap-4 my-input overflow-y-auto max-h-[450px] overlay">
+    <div class="flex flex-col gap-4 my-input overflow-y-auto max-h-112.5 overlay">
       <app-input-field
         label="Name"
         name="name"
         type="text"
         placeholder="Enter your name"
         [(ngModel)]="user.name"
-        #emailCtrl="ngModel"
         [submitted]="isSubmitted"
         [required]="true"
       ></app-input-field>
@@ -23,7 +22,6 @@
         type="email"
         placeholder="Enter your email"
         [(ngModel)]="user.email"
-        #emailCtrl="ngModel"
         [submitted]="isSubmitted"
         [required]="true"
       ></app-input-field>
@@ -36,7 +34,6 @@
         [required]="true"
         [(ngModel)]="user.password"
         (ngModelChange)="handleOnchangePassword($event)"
-        #passwordCtrl="ngModel"
         [submitted]="isSubmitted"
         [minlength]="6"
       ></app-input-field>

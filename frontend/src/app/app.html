@@ -1,6 +1,15 @@
 <div>
   <div>
-    <app-header (OpenDialog)="openLogin()"></app-header>
+    <p-progressbar
+      [style]="{ height: '2px' }"
+      color="oklch(72.7% 0.119 306.383)"
+      [value]="valueProgress"
+      showValue="false"
+      [hidden]="isHiddenProgress"
+    />
+  </div>
+  <div>
+    <app-header (OpenDialog)="openLogin()" (logoutClick)="logout()"></app-header>
     <router-outlet></router-outlet>
   </div>
   <div class="my-dialog">
@@ -12,18 +21,19 @@
       position="center"
       focusOnShow="false"
     >
-      @if (loginVisible){
-      <app-login
-        #loginRef
-        (signupClicked)="switchToSignup()"
-        (loginCloseDialog)="onCloseDialog()"
-      ></app-login>
-      } @if (signupVisible){
-      <app-signup
-        #signupRef
-        (loginClicked)="switchToLogin()"
-        (registeredCloseDialog)="onCloseDialog()"
-      ></app-signup>
+      @if (loginVisible) {
+        <app-login
+          #loginRef
+          (signupClicked)="switchToSignup()"
+          (loginCloseDialog)="onCloseDialog()"
+        ></app-login>
+      }
+      @if (signupVisible) {
+        <app-signup
+          #signupRef
+          (loginClicked)="switchToLogin()"
+          (registeredCloseDialog)="onCloseDialog()"
+        ></app-signup>
       }
     </p-dialog>
   </div>

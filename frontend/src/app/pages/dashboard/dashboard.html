@@ -1,4 +1,4 @@
-<div class="container mx-auto pt-4 pb-4">
+<div class="container mx-auto pt-4 pb-4 px-6">
   <div class="mb-10 gap-4">
     <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-2">My Resumes</h1>
     <p class="text-slate-500 dark:text-slate-400">
@@ -6,10 +6,43 @@
     </p>
   </div>
   <div
+    class="flex flex-col md:flex-row gap-4 mb-8 items-center justify-between transition-colors duration-300"
+  >
+    <div class="flex flex-1 gap-4 w-full md:max-w-xl">
+      <div class="relative flex-1">
+        <span
+          class="pi pi-search absolute left-3 flex items-center top-1/2 -translate-y-1/2 text-slate-400"
+        ></span>
+        <input
+          type="text"
+          pInputText
+          class="w-full ps-10!"
+          placeholder="Search resumes..."
+          [(ngModel)]="searchQuery"
+          (input)="onSearchChange()"
+        />
+      </div>
+    </div>
+    <p-button
+      class="hidden md:block"
+      label="Create Resume"
+      size="small"
+      (onClick)="openNewResumeDialog()"
+      icon="pi pi-plus"
+    />
+    <p-button
+      class="md:hidden fixed z-100 bottom-4 right-4"
+      rounded
+      (onClick)="openNewResumeDialog()"
+      icon="pi pi-plus"
+    />
+  </div>
+  <div
     class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl::grid-cols-5 gap-4 md:gap-7 pt-1 pb-6 px-4 md:px-0"
   >
     <div
-      class="flex flex-col gap-5 items-center justify-center bg-white rounded-lg border border-purple-100 hover:border-purple-300 hover:bg-purple-50/5 cursor-pointer"
+      (click)="openNewResumeDialog()"
+      class="flex min-h-80 flex-col gap-5 items-center justify-center bg-white rounded-lg border border-purple-100 hover:border-purple-300 hover:bg-purple-50/5 cursor-pointer"
     >
       <div class="w-12 h-12 flex items-center justify-center bg-purple-200/60 rounded-2xl">
         <i class="pi pi-plus text-xl text-purple-500"></i>
@@ -17,30 +50,50 @@
       <h3 class="font-medium text-gray-800">Add new Resume</h3>
     </div>
 
-    @for (resume of resumes; track $index) {
-    <app-resumecard
-      [title]="resume.title"
-      [imgUrl]="resume.thumbnail"
-      [lastUpdated]="resume.updated_at"
-    ></app-resumecard>
+    @for (resume of filteredResumes; track $index) {
+      <app-resumecard
+        [id]="resume._id"
+        [titleResume]="resume.title"
+        [imgUrl]="resume.thumbnail"
+        [lastUpdated]="frommatDate(resume.updated_at)"
+        (deleted)="handleDeleteResume($event)"
+      ></app-resumecard>
     }
   </div>
 </div>
-<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible">
-  <div>
-    <h3>Creadit New Resume</h3>
-    <P>Give your new resume a title to get started. You can edit all details later</P>
-    <form>
-      <!-- <app-input-field
-        label="Resume Title"
-        name="resumeTitle"
-        type="text"
-        placeholder="Enter Resume Title"
-        [(ngModel)]="resumeTitle"
-        #titleCtrl="ngModel"
-        [submitted]="isSubmitted"
-        [required]="true"
-      ></app-input-field> -->
-    </form>
-  </div>
-</p-dialog>
+<div class="my-dialog">
+  <p-dialog
+    #dialogRef
+    (onHide)="handleCloseDialog()"
+    header="Creadit New Resume"
+    [modal]="true"
+    [(visible)]="visible"
+  >
+    <div>
+      <p class="text-sm text-slate-700 mb-4">
+        Give your new resume a title to get started. You can edit all details later
+      </p>
+      <form #creatResumeForm="ngForm" (ngSubmit)="onCreateNewResume(creatResumeForm)" novalidate>
+        <app-input-field
+          label="Resume Title"
+          name="resumeTitle"
+          type="text"
+          [required]="true"
+          [submitted]="isSubmitted"
+          placeholder="Enter Resume Title"
+          [(ngModel)]="resumeTitle"
+        ></app-input-field>
+        <div class="card flex justify-center mt-5 my-button">
+          <p-button
+            [label]="isLoading ? 'Creating...' : 'Create Resume'"
+            [loading]="isLoading"
+            [disabled]="isLoading"
+            fluid
+            type="submit"
+            class="w-full"
+          />
+        </div>
+      </form>
+    </div>
+  </p-dialog>
+</div>

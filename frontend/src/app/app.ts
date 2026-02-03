@@ -6,19 +6,23 @@ import { filter } from 'rxjs/operators';
 import { Toast } from 'primeng/toast';
 import { User } from './services/user';
 import { DialogModule } from 'primeng/dialog';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 import { Login } from './auth/login/login';
 import { Signup } from './auth/signup/signup';
 import { Header } from '../app/layouts/header/header';
+import { Progress } from './services/progress';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Toast, Header, DialogModule, Login, Signup],
+  imports: [RouterOutlet, Toast, Header, DialogModule, Login, Signup, ProgressBarModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App implements OnInit, OnDestroy {
+  valueProgress: Number = 0;
   visible: boolean = false;
+  isHiddenProgress: boolean = true;
   loginVisible: boolean = false;
   signupVisible: boolean = false;
   titleModal: string = '';
@@ -27,7 +31,17 @@ export class App implements OnInit, OnDestroy {
 
   private sub: any;
 
-  constructor(private router: Router, private user: User) {}
+  constructor(
+    private router: Router,
+    private userService: User,
+    private progressService: Progress,
+  ) {
+    this.progressService.progress$.subscribe((state) => {
+      this.isHiddenProgress = state.show;
+      this.valueProgress = state.value;
+      console.log(this.isHiddenProgress);
+    });
+  }
 
   ngOnInit() {
     // open login dialog when URL contains ?login=1
@@ -36,7 +50,7 @@ export class App implements OnInit, OnDestroy {
         const tree = this.router.parseUrl(this.router.url || '');
         if (tree.queryParams && tree.queryParams['login']) {
           // if user not logged in, open modal; otherwise just clean the param
-          if (!this.user.isLoggedIn()) {
+          if (!this.userService.isLoggedIn()) {
             this.openLogin();
           }
           // remove query param so modal won't reopen on back/refresh
@@ -55,7 +69,21 @@ export class App implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sub?.unsubscribe?.();
   }
+  async logout() {
+    try {
+      // Bắt đầu progress animation và chờ hoàn tất
+      await this.progressService.startProgress(10);
 
+      // Animation đã xong (đạt 100%) → thực hiện logout thật
+      this.userService.logout();
+
+      // Ẩn progress sau khi logout xong
+      this.progressService.hide();
+    } catch (error) {
+      console.error('Lỗi logout:', error);
+      this.progressService.hide();
+    }
+  }
   handleCloseDialog() {
     this.loginVisible = true;
     this.signupVisible = false;

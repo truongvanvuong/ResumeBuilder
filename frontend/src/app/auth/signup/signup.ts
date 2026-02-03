@@ -7,7 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { finalize } from 'rxjs/operators';
 
-import { InputField } from '../../component/input-field/input-field';
+import { InputField } from '../../components/input-field/input-field';
 import { User } from '../../services/user';
 import { UserRegister } from '../../types/user';
 
@@ -31,7 +31,10 @@ export class Signup {
     password: '',
     confirmPassword: '',
   };
-  constructor(private userService: User, private messageService: MessageService) {}
+  constructor(
+    private userService: User,
+    private messageService: MessageService,
+  ) {}
 
   @ViewChild('signupForm') signupForm!: NgForm;
   @Output() loginClicked = new EventEmitter<void>();
@@ -102,7 +105,7 @@ export class Signup {
                 this.pendingSuccess = false;
               }
             }, 800);
-          })
+          }),
         )
         .subscribe({
           next: (res) => {

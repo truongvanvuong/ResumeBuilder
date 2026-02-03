@@ -6,7 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 
-import { InputField } from '../../component/input-field/input-field';
+import { InputField } from '../../components/input-field/input-field';
 import { User } from '../../services/user';
 import { finalize } from 'rxjs';
 
@@ -32,7 +32,10 @@ export class Login {
   @Output() signupClicked = new EventEmitter<void>();
   @Output() loginCloseDialog = new EventEmitter<void>();
 
-  constructor(private UserServices: User, private messageService: MessageService) {}
+  constructor(
+    private UserServices: User,
+    private messageService: MessageService,
+  ) {}
 
   resetForm() {
     this.user = { email: '', password: '' };
@@ -40,7 +43,8 @@ export class Login {
     this.loginForm?.resetForm();
   }
 
-  onSignupClick() {
+  onSignupClick(e: Event) {
+    e.stopPropagation();
     this.signupClicked.emit();
     this.resetForm();
   }
@@ -66,7 +70,7 @@ export class Login {
                 this.pendingSuccess = false;
               }
             }, 800);
-          })
+          }),
         )
         .subscribe({
           next: (res) => {

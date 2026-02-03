@@ -70,10 +70,15 @@ const createResume = async (req, res) => {
       title,
       ...defaultResumeData,
     });
-    res.status(201).json(newResume);
+    res.status(201).json({
+      message: "Resume created successfully",
+      success: true,
+      data: newResume,
+    });
   } catch (error) {
     res.status(500).json({
       message: "Failed to create resume",
+      success: false,
       error: error.message,
     });
   }
@@ -152,14 +157,14 @@ const deleteResume = async (req, res) => {
     if (resume.thumbnailLink) {
       const oldThumbnail = path.join(
         uploadsFolder,
-        path.basename(resume.thumbnailLink)
+        path.basename(resume.thumbnailLink),
       );
       if (fs.existsSync(oldThumbnail)) fs.unlinkSync(oldThumbnail);
     }
     if (resume.profileInfo?.profilePreviewUrl) {
       const oldProfile = path.join(
         uploadsFolder,
-        path.basename(resume.profileInfo.profilePreviewUrl)
+        path.basename(resume.profileInfo.profilePreviewUrl),
       );
       if (fs.existsSync(oldProfile)) fs.unlinkSync(oldProfile);
     }

@@ -1,0 +1,114 @@
+<div class="relative" [routerLink]="['/resume', id]">
+  <div
+    [class.opacity-50]="isDeleting"
+    class="flex flex-col bg-slate-100 cursor-pointer rounded-xl overflow-hidden border hover:border-purple-300 border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+  >
+    <div class="p-4">
+      <div [style.backgroundColor]="bgColor" class="overflow-hidden rounded-lg">
+        <div class="p-5">
+          @if (imgUrl) {
+            <img [src]="imgUrl" alt="Resume thumbnail" class="w-full h-50 object-contain rounded" />
+          } @else {
+            <div class="h-50"></div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="p-4 bg-white flex flex-col grow">
+      <div class="flex justify-between items-start mb-2">
+        <h3 class="font-bold text-base text-slate-800 dark:text-white truncate">
+          {{ titleResume }}
+        </h3>
+      </div>
+      <div class="mt-auto flex justify-between items-center">
+        <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+          <span class="pi pi-clock text-sm"></span>
+          <span>Last Updated: {{ lastUpdated }}</span>
+        </div>
+        <div>
+          <p-confirmdialog [style]="{ padding: '12px' }" position="center" />
+          <p-popover #op>
+            <ng-template #content>
+              <div class="flex flex-col gap-2">
+                <p-button
+                  (onClick)="onRename(titleResume)"
+                  size="small"
+                  icon="pi pi-pen-to-square"
+                  label="Rename"
+                  variant="text"
+                  severity="secondary"
+                />
+                <p-button
+                  (onClick)="onDelete($event)"
+                  label="Delete"
+                  severity="danger"
+                  [outlined]="true"
+                  icon="pi pi-trash"
+                  size="small"
+                  label="Delete"
+                  variant="text"
+                  severity="secondary"
+                />
+              </div>
+            </ng-template>
+          </p-popover>
+          <p-button
+            (click)="op.toggle($event)"
+            (click)="$event.stopPropagation()"
+            icon="pi pi-ellipsis-v text-gray-400"
+            size="small"
+            [rounded]="true"
+            [text]="true"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  @if (isDeleting) {
+    <div class="absolute inset-0 z-10 bg-white/80 flex flex-col gap-2 p-4 rounded-lg">
+      <p-skeleton width="100%" height="150px"></p-skeleton>
+      <p-skeleton width="60%" height="20px"></p-skeleton>
+      <p-skeleton width="40%" height="20px"></p-skeleton>
+    </div>
+  }
+</div>
+<div class="my-dialog">
+  <p-dialog
+    baseZIndex="1000"
+    (onHide)="handleCloseDialog()"
+    header="Rename Resume"
+    [modal]="true"
+    [(visible)]="visible"
+  >
+    <div>
+      <p class="text-sm text-slate-700 my-4">Rename your resume to make it easier to find.</p>
+      <form
+        #updateResumeTitleForm="ngForm"
+        (ngSubmit)="RenameResumeTitle(updateResumeTitleForm)"
+        novalidate
+      >
+        <app-input-field
+          label="Resume Title"
+          name="titleResume"
+          type="text"
+          placeholder="Enter Resume Title"
+          [(ngModel)]="titleResume"
+          [required]="true"
+          (ngModelChange)="handleRenameResume($event)"
+          [messageError]="messsageError"
+        ></app-input-field>
+        <div class="card flex justify-center mt-5 my-button">
+          <p-button
+            [label]="isLoading ? 'Updating...' : 'Rename Resume'"
+            [loading]="isLoading"
+            [disabled]="isLoading"
+            fluid
+            type="submit"
+            class="w-full"
+          />
+        </div>
+      </form>
+    </div>
+  </p-dialog>
+</div>

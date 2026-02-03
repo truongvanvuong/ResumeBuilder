@@ -8,7 +8,6 @@
         type="email"
         placeholder="Enter your email"
         [(ngModel)]="user.email"
-        #emailCtrl="ngModel"
         [submitted]="isSubmitted"
         [required]="true"
       ></app-input-field>
@@ -20,13 +19,12 @@
         placeholder="Enter your password"
         [required]="true"
         [(ngModel)]="user.password"
-        #passwordCtrl="ngModel"
         [submitted]="isSubmitted"
       ></app-input-field>
     </div>
     <div class="card flex justify-center mt-5 my-button">
       <p-button
-        [label]="isLoading ? 'Signing in...' : 'Login'"
+        [label]="isLoading ? 'Signing in...' : 'LOGIN'"
         [loading]="isLoading"
         [disabled]="isLoading"
         fluid
@@ -37,6 +35,6 @@
   </form>
   <div class="flex items-center justify-center gap-1 my-button-link">
     <p>Don't have an account?</p>
-    <p-button label="Signup" link (onClick)="onSignupClick()" />
+    <p-button label="Signup" link (onClick)="onSignupClick($event)" />
   </div>
 </div>

@@ -83,4 +83,9 @@ export interface Resume {
   updated_at: string;
 }
 
+export interface ResumeResponse {
+  success: boolean;
+  message: string;
+  data: Resume;
+}
 export type GetResumesResponse = Resume[];

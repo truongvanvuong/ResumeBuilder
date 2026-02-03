@@ -18,16 +18,18 @@ import { CurrentUser } from '../../types/user';
 })
 export class Header implements OnInit, OnDestroy {
   @Output() OpenDialog = new EventEmitter<void>();
+  @Output() logoutClick = new EventEmitter<void>();
   @Input() border: boolean = false;
   isLoggedIn: boolean = false;
   currentUser: CurrentUser | null = null;
   isOnDashboard: boolean = false;
-  showMenu: boolean = false;
-  private _menuTimer: any;
 
   private userSub: any;
   private routeSub: any;
-  constructor(private userService: User, private router: Router) {}
+  constructor(
+    private userService: User,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     // initial state
@@ -38,15 +40,6 @@ export class Header implements OnInit, OnDestroy {
       this.currentUser = u;
       this.isLoggedIn = this.userService.isLoggedIn();
       // animate menu with small delay when logged in
-      if (this.isLoggedIn) {
-        // clear any existing timer
-        if (this._menuTimer) clearTimeout(this._menuTimer);
-        this._menuTimer = setTimeout(() => (this.showMenu = true), 1400);
-      } else {
-        // hide immediately on logout
-        if (this._menuTimer) clearTimeout(this._menuTimer);
-        this.showMenu = false;
-      }
     });
 
     // if token exists but currentUser not in BehaviorSubject, try load from localStorage
@@ -63,26 +56,24 @@ export class Header implements OnInit, OnDestroy {
             this.currentUser = JSON.parse(raw);
           }
         } catch (e) {
-          // ignore parse errors
+          console.error('Failed to parse currentUser from localStorage', e);
         }
       }
     }
 
     // watch route changes to update header style and hide dashboard link on dashboard
     this.routeSub = this.router.events
-      .pipe(filter((e) => e instanceof NavigationEnd))
-      .subscribe((ev: any) => {
-        try {
-          const url = ev?.urlAfterRedirects || this.router.url || '';
-          this.isOnDashboard = url.startsWith('/dashboard');
-          this.border = this.isOnDashboard;
-        } catch (e) {}
+      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+      .subscribe((ev: NavigationEnd) => {
+        const url = ev.urlAfterRedirects || this.router.url || '';
+        this.isOnDashboard = url.startsWith('/dashboard');
+        this.border = this.isOnDashboard;
       });
   }
 
   ngOnDestroy() {
-    this.userSub?.unsubscribe?.();
-    this.routeSub?.unsubscribe?.();
+    this.userSub?.unsubscribe();
+    this.routeSub?.unsubscribe();
   }
 
   showDialog() {
@@ -91,6 +82,6 @@ export class Header implements OnInit, OnDestroy {
 
   logout() {
     // run a determinate progress bar, then perform logout
-    this.userService.logout();
+    this.logoutClick.emit();
   }
 }
