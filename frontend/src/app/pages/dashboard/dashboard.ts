@@ -12,7 +12,7 @@ import moment from 'moment';
 import { InputField } from '../../components/input-field/input-field';
 import { Resumecard } from '../../components/resumecard/resumecard';
 import { Resume as ResumeService } from '../../services/resume';
-import { GetResumesResponse, Resume, ResumeResponse } from '../../types/Resumes';
+import { GetResumesResponse, ResumeResponse } from '../../types/Resumes';
 
 @Component({
   selector: 'app-dashboard',

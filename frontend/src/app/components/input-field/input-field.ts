@@ -1,6 +1,7 @@
-import { Component, forwardRef, Input, SimpleChanges } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import {
   ControlValueAccessor,
+  FormControl,
   FormsModule,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
@@ -9,13 +10,14 @@ import {
 } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
+import { DatePickerModule } from 'primeng/datepicker';
 import { MessageModule } from 'primeng/message';
 
 import { isValidEmail } from '../../shared/utils/validators';
 import { getFieldErrorMessage } from '../../shared/utils/validators';
 @Component({
   selector: 'app-input-field',
-  imports: [InputTextModule, PasswordModule, MessageModule, FormsModule],
+  imports: [InputTextModule, PasswordModule, DatePickerModule, MessageModule, FormsModule],
   templateUrl: './input-field.html',
   providers: [
     {
@@ -32,6 +34,11 @@ import { getFieldErrorMessage } from '../../shared/utils/validators';
   styleUrl: './input-field.css',
 })
 export class InputField implements ControlValueAccessor, Validator {
+  @Input() control!: FormControl;
+  @Input() view: 'date' | 'month' | 'year' = 'date';
+  @Input() maxDate?: Date;
+  @Input() minDate?: Date;
+  @Input() dateFormat: string = 'mm/dd/yy';
   @Input() messageError: string = '';
   @Input() name: string = '';
   @Input() label: string = '';
@@ -41,6 +48,7 @@ export class InputField implements ControlValueAccessor, Validator {
   @Input() submitted: boolean = false;
   @Input() disabled: boolean = false;
   @Input() minlength: number | null = null;
+
   value: any = '';
   touched: boolean = false;
   onChange: (value: any) => void = () => {};

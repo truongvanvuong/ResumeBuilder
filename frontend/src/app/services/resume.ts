@@ -31,6 +31,17 @@ export class Resume {
       }),
     );
   }
+  getResume(id: string): Observable<ResumeType> {
+    const url = `${this.BaseUrl}/resumes/${id}`;
+    const token = this.user.getToken();
+    const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : undefined;
+    return this.http.get<ResumeType>(url, headers ? { headers } : {}).pipe(
+      catchError((err) => {
+        console.error('Failed to fetch resumes', err);
+        return throwError(() => err);
+      }),
+    );
+  }
   createResume(data: Partial<ResumeType>): Observable<ResumeResponse> {
     const url = `${this.BaseUrl}/resumes`;
     const token = this.user.getToken();

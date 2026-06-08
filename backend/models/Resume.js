@@ -36,6 +36,7 @@ const ResumeSchema = new mongoose.Schema(
     ],
     education: [
       {
+        major: String,
         degree: String,
         institution: String,
         startDate: Date,
@@ -45,20 +46,28 @@ const ResumeSchema = new mongoose.Schema(
     skills: [
       {
         name: String,
-        progerss: Number,
+        level: String,
+      },
+    ],
+    references: [
+      {
+        fullName: String,
+        company: String,
+        email: String,
+        phone: String,
       },
     ],
     projects: [
       {
-        title: String,
+        name: String,
         description: String,
         github: String,
-        liveDemo: String,
+        linkdemo: String,
       },
     ],
     certifications: [
       {
-        title: String,
+        name: String,
         issuer: String,
         year: String,
       },
@@ -66,13 +75,12 @@ const ResumeSchema = new mongoose.Schema(
     languages: [
       {
         name: String,
-        progerss: Number,
+        level: String,
       },
     ],
-    interests: [String],
   },
   {
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
-  }
+  },
 );
 export default mongoose.model("Resume", ResumeSchema);

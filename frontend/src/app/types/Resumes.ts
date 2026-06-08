@@ -29,6 +29,7 @@ export interface WorkExperience {
 
 // Học vấn
 export interface Education {
+  major: string;
   degree: string;
   institution: string;
   startDate: string;
@@ -39,29 +40,39 @@ export interface Education {
 // Kỹ năng
 export interface Skill {
   name: string;
-  progress: number;
+  level?: string;
   _id: string;
+}
+
+export interface Reference {
+  fullName: string;
+  company: string;
+  email: string;
+  phone: string;
+  _id?: string;
 }
 
 // Ngôn ngữ
 export interface Language {
   name: string;
-  progress: number;
+  level: string;
   _id: string;
 }
 
 export interface Project {
-  title: string;
+  name: string;
   description: string;
   github: string;
   liveDemo: string;
+  _id: string;
 }
 
 // Chứng chỉ (hiện tại mảng rỗng)
-export interface Certification {
-  title: string;
+export interface certification {
+  name: string;
   issuer: string;
   year: string;
+  _id: string;
 }
 
 // Một bản resume hoàn chỉnh
@@ -78,7 +89,8 @@ export interface Resume {
   languages: Language[];
   interests: string[];
   projects: Project[];
-  certifications: Certification[];
+  certifications: certification[];
+  references?: Reference[];
   created_at: string;
   updated_at: string;
 }

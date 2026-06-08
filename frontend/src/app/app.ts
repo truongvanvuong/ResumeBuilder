@@ -17,6 +17,7 @@ import { Progress } from './services/progress';
   selector: 'app-root',
   imports: [RouterOutlet, Toast, Header, DialogModule, Login, Signup, ProgressBarModule],
   templateUrl: './app.html',
+  providers: [Progress],
   styleUrl: './app.css',
 })
 export class App implements OnInit, OnDestroy {
@@ -37,9 +38,8 @@ export class App implements OnInit, OnDestroy {
     private progressService: Progress,
   ) {
     this.progressService.progress$.subscribe((state) => {
-      this.isHiddenProgress = state.show;
+      this.isHiddenProgress = state.isHidden;
       this.valueProgress = state.value;
-      console.log(this.isHiddenProgress);
     });
   }
 

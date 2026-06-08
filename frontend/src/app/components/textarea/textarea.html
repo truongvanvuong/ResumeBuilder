@@ -1,0 +1,17 @@
+<div class="w-full gap-2.5 flex flex-col mt-4 my-textarea">
+  <label [htmlFor]="name" class="text-sm text-slate-900">Description</label>
+  <textarea
+    id="description"
+    rows="5"
+    cols="30"
+    pTextarea
+    [disabled]="disabled"
+    [required]="required"
+    fluid
+    class="w-full"
+    [placeholder]="placeholder"
+    [value]="value"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
+  ></textarea>
+</div>

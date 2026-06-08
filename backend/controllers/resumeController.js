@@ -35,6 +35,7 @@ const createResume = async (req, res) => {
       ],
       education: [
         {
+          major: "",
           degree: "",
           institution: "",
           startDate: "",
@@ -44,25 +45,32 @@ const createResume = async (req, res) => {
       skills: [
         {
           name: "",
-          progress: 0,
+          level: "",
         },
       ],
-      project: [
+      references: [
         {
-          title: "",
+          fullName: "",
+          company: "",
+          email: "",
+          phone: "",
+        },
+      ],
+      projects: [
+        {
+          name: "",
           description: "",
           github: "",
-          liveDemo: "",
+          linkdemo: "",
         },
       ],
-      crerifcations: [{ title: "", issuer: "", year: "" }],
+      certifications: [{ name: "", issuer: "", year: "" }],
       languages: [
         {
           name: "",
-          progress: "",
+          level: "",
         },
       ],
-      interests: [""],
     };
 
     const newResume = await Resume.create({

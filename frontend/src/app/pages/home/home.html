@@ -76,7 +76,7 @@
         </div>
         <div class="relative max-md:flex max-md:justify-center">
           <div
-            class="absolute -inset-10 bg-linear-to-tr from-primary/20 via-blue-500/20 to-transparent rounded-[3rem] blur-[80px] opacity-50 group-hover:opacity-80 transition-opacity duration-1000"
+            class="absolute w-full -inset-10 bg-linear-to-tr from-primary/20 via-blue-500/20 to-transparent rounded-[3rem] blur-[80px] opacity-50 group-hover:opacity-80 transition-opacity duration-1000"
           ></div>
           <div
             class="relative bg-white rounded-3xl shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] border border-white/40 p-4 overflow-hidden aspect-4/3 max-md:hidden"
@@ -118,7 +118,7 @@
       </div>
     </div>
   </section>
-  <section class="px-4 md:px-20 py-32 md:py-48 bg-[#FBFAFD] relative overflow-hidden">
+  <section class="px-4 md:px-20 py-24 md:py-32 bg-[#FBFAFD] relative overflow-hidden">
     <div class="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[120px]"></div>
     <div class="container mx-auto relative z-10">
       <div class="flex flex-col gap-6 text-center mb-24">
@@ -130,7 +130,7 @@
           advantage.
         </p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         @for (cardItem of cardItems; track $index) {
           <div
             class="flex flex-col gap-8 rounded-3xl p-12 shadow-lg transition-all hover:-translate-y-2.5 hover:shadow-primary/10"
@@ -162,7 +162,7 @@
         class="absolute top-0 left-0 w-80 h-80 bg-white/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
       ></div>
       <div
-        class="absolute bottom-0 right-0 w-125 h-125 bg-white/5 rounded-full blur-[100px] translate-x-1/4 translate-y-1/4"
+        class="absolute bottom-0 right-0 md:w-125 h-125 bg-white/5 rounded-full blur-[100px] translate-x-1/4 translate-y-1/4"
       ></div>
       <div class="relative z-10 flex flex-col gap-6">
         <h2 class="text-white text-4xl md:text-5xl font-black tracking-tight leading-tight">

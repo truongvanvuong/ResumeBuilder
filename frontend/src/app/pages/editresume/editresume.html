@@ -1,29 +1,168 @@
 <div class="container mx-auto px-4">
   <div
-    class="flex items-center justify-between gap-4 bg-white rounded-lg border border-purple-100 py-3 px-4 my-4"
+    class="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-white rounded-lg border border-purple-100 py-3 px-4 my-4"
   >
-    <div class="flex items-center gap-2">
-      <h1 class="text-sm md:text-lg font-semibold text-gray-900 dark:text-white text-clip">
-        UI UX Designer Resume UI UX Designer Resume
-      </h1>
-      <p-button icon="pi pi-pencil" size="small" [rounded]="true" [text]="true" />
+    <div class="flex md:items-center gap-2 max-md:justify-between max-md:w-full">
+      <input
+        #titleInput
+        [value]="resumeForm.value.title"
+        [readOnly]="!isEdititle"
+        [class.border-b-1]="isEdititle"
+        class="text-base md:text-lg border-gray-300 p-1 font-semibold focus:outline-0 field-sizing-content text-gray-900 dark:text-white text-clip"
+      />
+      @if (!isEdititle) {
+        <p-button
+          icon="pi pi-pencil"
+          size="small"
+          [style]="{ color: 'var(--color-primary)' }"
+          [rounded]="true"
+          (onClick)="handleEditTitile()"
+          [text]="true"
+        />
+      } @else {
+        <div class="flex items-center">
+          <p-button
+            icon="pi pi-check"
+            size="small"
+            [rounded]="true"
+            [text]="true"
+            severity="success"
+          />
+          <p-button
+            size="small"
+            icon="pi pi-times"
+            [rounded]="true"
+            [text]="true"
+            severity="danger"
+            (onClick)="onCancelEditTitle()"
+          />
+        </div>
+      }
     </div>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center max-md:justify-between gap-2">
       <button Class="btn-small-light">
         <i class="pi pi-palette" pButtonIcon></i>
-        <span pButtonLabel class="hidden md:block">Chang theme</span>
+        <span pButtonLabel class="hidden sm:block">Chang theme</span>
       </button>
       <button Class="btn-small-light">
         <i class="pi pi-trash" pButtonIcon></i>
-        <span pButtonLabel class="hidden md:block">Delete</span>
+        <span pButtonLabel class="hidden sm:block">Delete</span>
       </button>
       <button Class="btn-small-light">
         <i class="pi pi-download" pButtonIcon></i>
-        <span pButtonLabel class="hidden md:block">Preview & Download</span>
+        <span pButtonLabel class="hidden sm:block">Preview & Download</span>
       </button>
     </div>
   </div>
-  <div class="grid grid-cols-1 md:grid-cols-2">
-    <div class="bg-white rounded-lg border-purple-100 overflow-hidden"></div>
+  <div class="grid grid-cols-1 md:grid-cols-2 mb-4 gap-5">
+    <div class="bg-white rounded-lg border border-purple-100 overflow-hidden">
+      <p-progressbar
+        [style]="{ height: '4px' }"
+        color="oklch(72.7% 0.119 306.383)"
+        [value]="ValueProgressBar"
+        showValue="false"
+      />
+      <div class="m-5">
+        <form [formGroup]="resumeForm">
+          @switch (currentSection) {
+            @case (0) {
+              <app-profileinfo
+                [profileForm]="profileInfo"
+                [errMessage]="sectionError[0]"
+              ></app-profileinfo>
+            }
+            @case (1) {
+              <app-contactinfo
+                [contactForm]="contactInfo"
+                [errMessage]="sectionError[1]"
+              ></app-contactinfo>
+            }
+            @case (2) {
+              <app-workexperience
+                [experiences]="workExperience"
+                (add)="addItem('workExperience')"
+                (remove)="removeItem('workExperience', $event)"
+              ></app-workexperience>
+            }
+            @case (3) {
+              <app-education-details
+                [education]="education"
+                (add)="addItem('education')"
+                (remove)="removeItem('education', $event)"
+              ></app-education-details>
+            }
+            @case (4) {
+              <app-skills
+                [skills]="skills"
+                (add)="addItem('skills')"
+                (remove)="removeItem('skills', $event)"
+              ></app-skills>
+            }
+            @case (5) {
+              <app-project
+                [projects]="projects"
+                (add)="addItem('projects')"
+                (remove)="removeItem('projects', $event)"
+              ></app-project>
+            }
+            @case (6) {
+              <app-certifications
+                [certifications]="certifications"
+                (add)="addItem('certifications')"
+                (remove)="removeItem('certifications', $event)"
+              ></app-certifications>
+            }
+            @case (7) {
+              <app-languages
+                [languages]="languages"
+                (add)="addItem('languages')"
+                (remove)="removeItem('languages', $event)"
+              ></app-languages>
+            }
+            @default {
+              <app-profileinfo></app-profileinfo>
+            }
+          }
+        </form>
+      </div>
+      <div class="m-5">
+        <div class="flex items-end justify-end gap-3 z-1">
+          <p-button
+            size="small"
+            (onClick)="previousStep()"
+            label="Back"
+            icon="pi pi-arrow-left"
+            variant="outlined"
+            [disabled]="isFirstStep"
+            severity="help"
+          ></p-button>
+          <p-button
+            size="small"
+            label="Save & Exit"
+            icon="pi pi-save"
+            variant="outlined"
+            severity="help"
+          ></p-button>
+          <p-button
+            label="Next"
+            (onClick)="vadidateAndNext()"
+            size="small"
+            icon="pi pi-arrow-right"
+            [disabled]="isLastStep"
+            severity="help"
+          ></p-button>
+        </div>
+        <p-button
+          label="log"
+          (onClick)="log()"
+          size="small"
+          icon="pi pi-arrow-right"
+          severity="help"
+        ></p-button>
+      </div>
+    </div>
+    <div class="h-screen">
+      <app-renderresume [containerWitdth]="800" contemplateId="01"></app-renderresume>
+    </div>
   </div>
 </div>

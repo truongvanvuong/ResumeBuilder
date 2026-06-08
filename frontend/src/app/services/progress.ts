@@ -1,26 +1,27 @@
-import { CurrentUser } from './../types/user';
 import { Injectable } from '@angular/core';
-import { flush } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Progress {
-  private progressSubject = new BehaviorSubject<{ show: boolean; value: number }>({
-    show: true,
+  private progressSubject = new BehaviorSubject<{ isHidden: boolean; value: number }>({
+    isHidden: true,
     value: 0,
   });
   progress$ = this.progressSubject.asObservable();
+  private interval: any;
+
   startProgress(startValue: number = 10): Promise<void> {
+    this.clear();
     return new Promise((resolve) => {
-      let curentValue = startValue;
-      this.progressSubject.next({ show: false, value: curentValue });
-      const interval = setInterval(() => {
-        curentValue += 10;
-        this.progressSubject.next({ show: false, value: curentValue });
-        if (curentValue >= 100) {
-          clearInterval(interval);
+      let currentValue = startValue;
+      this.progressSubject.next({ isHidden: false, value: currentValue });
+      this.interval = setInterval(() => {
+        currentValue += 10;
+        this.progressSubject.next({ isHidden: false, value: currentValue });
+        if (currentValue >= 100) {
+          this.clear();
           setTimeout(() => {
             resolve();
           }, 800);
@@ -30,6 +31,14 @@ export class Progress {
   }
 
   hide() {
-    this.progressSubject.next({ show: true, value: 0 });
+    this.clear();
+    this.progressSubject.next({ isHidden: true, value: 0 });
+  }
+
+  private clear() {
+    if (this.interval) {
+      clearInterval(this.interval);
+      this.interval = null;
+    }
   }
 }

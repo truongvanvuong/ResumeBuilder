@@ -1,0 +1,69 @@
+<div class="pt-5 animate__animated animate__fadeIn">
+  <h2 class="text-lg font-semibold text-gray-900">Education</h2>
+  <div class="flex flex-col gap-4 mb-3 mt-4">
+    @for (edu of education.controls; track $index; let i = $index) {
+      <div
+        [formGroup]="getFormGroup($index)"
+        class="border border-gray-200/80 p-4 rounded-lg relative"
+      >
+        @if (education.controls.length > 1) {
+          <p-button
+            size="small"
+            icon="pi pi-trash"
+            class="absolute top-1.5 right-1.5"
+            (onClick)="remove.emit($index)"
+            [rounded]="true"
+            [text]="true"
+            severity="danger"
+          />
+        }
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="col-span-1 md:col-span-2">
+            <app-input-field
+              label="Your major"
+              formControlName="major"
+              placeholder="Information Technology"
+              type="text"
+            ></app-input-field>
+          </div>
+          <app-input-field
+            label="Degree"
+            formControlName="degree"
+            placeholder="B.Tech in Computer Science"
+            type="text"
+          ></app-input-field>
+          <app-input-field
+            label="Institution"
+            formControlName="institution"
+            placeholder="Hunre University"
+          >
+          </app-input-field>
+          <app-input-field
+            label="Start Date"
+            type="date"
+            [maxDate]="getEndDate(i)"
+            dateFormat="mm/yy"
+            formControlName="startDate"
+            view="month"
+          ></app-input-field>
+          <app-input-field
+            formControlName="endDate"
+            [minDate]="getStartDate(i)"
+            label="End Date"
+            type="date"
+            dateFormat="mm/yy"
+            view="month"
+          ></app-input-field>
+        </div>
+      </div>
+    }
+    <p-button
+      label="Add Education"
+      (onClick)="add.emit()"
+      icon="pi pi-plus"
+      variant="outlined"
+      severity="help"
+      size="small"
+    />
+  </div>
+</div>

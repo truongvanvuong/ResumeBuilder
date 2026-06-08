@@ -1,0 +1,60 @@
+<div class="pt-5 animate__animated animate__fadeIn" [formGroup]="contactForm">
+  <h2 class="text-lg font-semibold text-gray-900">Contact Information</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+    <!-- Address chiếm toàn bộ chiều rộng (col-span-2) -->
+    <div class="col-span-1 md:col-span-2">
+      <app-input-field
+        type="text"
+        label="Address"
+        placeholder="Short Address"
+        formControlName="address"
+      ></app-input-field>
+    </div>
+
+    <!-- 4 field này: 1 cột trên mobile, 2 cột trên desktop -->
+    <app-input-field
+      label="Email"
+      placeholder="abc@example.com"
+      formControlName="email"
+    ></app-input-field>
+
+    <app-input-field
+      type="number"
+      label="Phone Number"
+      placeholder="1234567890"
+      formControlName="phone"
+    ></app-input-field>
+
+    <app-input-field
+      label="GitHub"
+      placeholder="http://github.com/yourusername"
+      formControlName="github"
+    ></app-input-field>
+
+    <app-input-field
+      label="LinkedIn"
+      placeholder="https://linkedin.com/in/yourusername"
+      formControlName="linkedin"
+    ></app-input-field>
+
+    <!-- Portfolio/website chiếm toàn bộ chiều rộng -->
+    <div class="col-span-1 md:col-span-2">
+      <app-input-field
+        label="Portfolio/website"
+        formControlName="website"
+        placeholder="https://example.com"
+      ></app-input-field>
+    </div>
+  </div>
+
+  @if (errMessage) {
+    <p-message
+      size="small"
+      severity="warn"
+      icon="pi pi-exclamation-circle"
+      [text]="errMessage"
+      styleClass="mt-4"
+    />
+  }
+</div>

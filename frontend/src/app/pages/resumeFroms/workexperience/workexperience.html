@@ -1,0 +1,66 @@
+<div class="pt-5 animate__animated animate__fadeIn">
+  <h2 class="text-lg font-semibold text-gray-900">Work Experience</h2>
+  <div class="flex flex-col gap-4 mb-3 mt-4">
+    @for (exp of experiences.controls; track $index; let i = $index) {
+      <div [formGroup]="getFormGroup(i)" class="border border-gray-200/80 p-4 rounded-lg relative">
+        @if (experiences.controls.length > 1) {
+          <p-button
+            size="small"
+            icon="pi pi-trash"
+            class="absolute top-1.5 right-1.5"
+            (onClick)="remove.emit(i)"
+            [rounded]="true"
+            [text]="true"
+            severity="danger"
+          />
+        }
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <app-input-field
+            label="Company Name"
+            formControlName="company"
+            type="text"
+            placeholder="FPT SoftWare"
+          ></app-input-field>
+          <app-input-field
+            label="Role"
+            type="text"
+            placeholder="Developer"
+            formControlName="role"
+          ></app-input-field>
+          <app-input-field
+            label="Start date"
+            dateFormat="mm/yy"
+            placeholder="mm/yyyy"
+            view="month"
+            type="date"
+            view="month"
+            [maxDate]="getEndDate(i)"
+            formControlName="startDate"
+          ></app-input-field>
+          <app-input-field
+            label="End date"
+            placeholder="mm/yyyy"
+            type="date"
+            view="month"
+            dateFormat="mm/yy"
+            [minDate]="getStartDate(i)"
+            formControlName="endDate"
+          ></app-input-field>
+        </div>
+        <app-textarea
+          label="Description"
+          formControlName="description"
+          placeholder="Describe your work experience..."
+        />
+      </div>
+    }
+    <p-button
+      (onClick)="add.emit()"
+      label="Add Work Experience"
+      icon="pi pi-plus"
+      variant="outlined"
+      severity="help"
+      size="small"
+    />
+  </div>
+</div>
