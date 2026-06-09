@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import Resume from "../models/Resume.js";
+import Resume from "../models/resume.js";
 
 import upload from "../middlewares/uploadMiddleware.js";
 
@@ -40,7 +40,7 @@ const uploadResumeImages = async (req, res) => {
           if (resume.thumbnailLink) {
             const oldThumbnail = path.join(
               uploadsFolder,
-              path.basename(resume.thumbnailLink)
+              path.basename(resume.thumbnailLink),
             );
             if (fs.existsSync(oldThumbnail)) fs.unlinkSync(oldThumbnail);
           }
@@ -50,7 +50,7 @@ const uploadResumeImages = async (req, res) => {
           if (resume.profileInfo?.profilePreviewUrl) {
             const oldProfile = path.join(
               uploadsFolder,
-              path.basename(resume.profileInfo.profilePreview)
+              path.basename(resume.profileInfo.profilePreview),
             );
             if (fs.existsSync(oldProfile)) fs.unlinkSync(oldProfile);
           }
@@ -62,7 +62,7 @@ const uploadResumeImages = async (req, res) => {
           thumbnailLink: resume.thumbnailLink,
           profilePreviewUrl: resume.profileInfo.profilePreviewUrl,
         });
-      }
+      },
     );
   } catch (error) {
     console.error("Error uploading images:", error);

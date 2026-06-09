@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import Resume from "../models/Resume.js";
+import Resume from "../models/resume.js";
 
 const createResume = async (req, res) => {
   try {
