@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:7000/api',
+  apiUrl: 'https://resumebuilder-1jdb.onrender.com/api',
 };
