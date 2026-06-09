@@ -18,7 +18,6 @@ import { certifications } from '../resumeFroms/certifications/certifications';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Languages } from '../resumeFroms/languages/languages';
 import { Renderresume } from '../../components/ResumeTemplates/renderresume/renderresume';
-import { InputField } from '../../components/input-field/input-field';
 
 @Component({
   selector: 'app-editresume',
@@ -35,7 +34,6 @@ import { InputField } from '../../components/input-field/input-field';
     certifications,
     Languages,
     Renderresume,
-    InputField,
   ],
   templateUrl: './editresume.html',
   styleUrl: './editresume.css',
