@@ -13,10 +13,11 @@ import { InputField } from '../../components/input-field/input-field';
 import { Resumecard } from '../../components/resumecard/resumecard';
 import { Resume as ResumeService } from '../../services/resume';
 import { GetResumesResponse, ResumeResponse } from '../../types/Resumes';
+import { Avatar } from 'primeng/avatar';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [Resumecard, Dialog, InputField, FormsModule, InputTextModule, ButtonModule],
+  imports: [Resumecard, Dialog, InputField, FormsModule, InputTextModule, ButtonModule, Avatar],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

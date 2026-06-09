@@ -48,6 +48,8 @@ export class InputField implements ControlValueAccessor, Validator {
   @Input() submitted: boolean = false;
   @Input() disabled: boolean = false;
   @Input() minlength: number | null = null;
+  /** Khi false: chỉ hiện lỗi khi submitted=true, không hiện lỗi khi blur */
+  @Input() validateOnBlur: boolean = true;
 
   value: any = '';
   touched: boolean = false;
@@ -74,7 +76,9 @@ export class InputField implements ControlValueAccessor, Validator {
     this.onChange(value);
   }
   onBlur() {
-    this.touched = true;
+    if (this.validateOnBlur) {
+      this.touched = true;
+    }
     this.onTouched();
   }
 

@@ -1,9 +1,7 @@
 <div class="container mx-auto pt-4 pb-4 px-4">
   <div class="mb-10 gap-4">
-    <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-2">My Resumes</h1>
-    <p class="text-slate-500 dark:text-slate-400">
-      Manage, edit, and create your professional resumes.
-    </p>
+    <h1 class="text-3xl font-extrabold text-slate-900 mb-2">My Resumes</h1>
+    <p class="text-slate-500">Manage, edit, and create your professional resumes.</p>
   </div>
   <div
     class="flex flex-col md:flex-row gap-4 mb-8 items-center justify-between transition-colors duration-300"
@@ -62,13 +60,12 @@
   </div>
 </div>
 <div class="my-dialog">
-  <p-dialog
-    #dialogRef
-    (onHide)="handleCloseDialog()"
-    header="Creadit New Resume"
-    [modal]="true"
-    [(visible)]="visible"
-  >
+  <p-dialog #dialogRef (onHide)="handleCloseDialog()" [modal]="true" [(visible)]="visible">
+    <ng-template #header>
+      <div class="inline-flex items-center justify-center gap-2">
+        <h2 class="font-bold text-xl md:text-2xl text-[#334155]">Create new resume</h2>
+      </div>
+    </ng-template>
     <div>
       <p class="text-sm text-slate-700 mb-4">
         Give your new resume a title to get started. You can edit all details later
@@ -81,6 +78,7 @@
           [required]="true"
           [submitted]="isSubmitted"
           placeholder="Enter Resume Title"
+          [validateOnBlur]="false"
           [(ngModel)]="resumeTitle"
         ></app-input-field>
         <div class="card flex justify-center mt-5 my-button">
