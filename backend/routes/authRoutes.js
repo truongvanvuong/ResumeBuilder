@@ -1,4 +1,4 @@
-import experss from "express";
+import express from "express";
 import {
   loginUser,
   registerUser,
@@ -6,7 +6,7 @@ import {
 } from "../controllers/authController.js";
 import protect from "../middlewares/authMiddleware.js";
 import upload from "../middlewares/uploadMiddleware.js";
-const router = experss.Router();
+const router = express.Router();
 
 router.post("/login", loginUser);
 router.post("/register", registerUser);

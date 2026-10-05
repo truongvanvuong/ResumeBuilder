@@ -1,4 +1,4 @@
-import { Resume } from './../../types/Resumes';
+import { Resume } from '../../types/resumes';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { finalize, Subscription } from 'rxjs';
@@ -195,7 +195,7 @@ export class Editresume {
       }
     });
   }
-  vadidateAndNext() {
+  validateAndNext() {
     const error: string[] = [];
 
     switch (this.currentSection) {
@@ -250,9 +250,7 @@ export class Editresume {
   get contactInfo(): FormGroup {
     return this.resumeForm.get('contactInfo') as FormGroup;
   }
-  log() {
-    console.log(this.sectionError);
-  }
+
   ngOnInit() {
     this.resumeId = this.route.snapshot.paramMap.get('id') ?? '';
     if (this.resumeId) {

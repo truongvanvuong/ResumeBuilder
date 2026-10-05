@@ -3,7 +3,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "paths": {
+      "*": ["./*"]
+    },
     "outDir": "./dist/out-tsc",
     "moduleResolution": "bundler",
     "strict": true,

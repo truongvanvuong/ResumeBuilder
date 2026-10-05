@@ -1,3 +1,16 @@
 <div>
-  
+  @switch (templateId) {
+  @case ('01') {
+  <app-templateone [resumeData]="resumeData"></app-templateone>
+  }
+  @case ('02') {
+  <app-templatetwo [resumeData]="resumeData"></app-templatetwo>
+  }
+  @case ('03') {
+  <app-templatethree [resumeData]="resumeData"></app-templatethree>
+  }
+  @default {
+  <app-templateone [resumeData]="resumeData"></app-templateone>
+  }
+  }
 </div>

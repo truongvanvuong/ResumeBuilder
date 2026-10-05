@@ -1,0 +1,112 @@
+<div>
+    <ng-template #title let-text="text" let-color="color">
+        <div class="relative w-fit mb-2.5">
+            <span class="absolute bottom-0 left-0 w-full h-1" [style.background-color]="color"></span>
+            <h2 class="relative text-base font-bold">{{text}}</h2>
+        </div>
+    </ng-template>
+    <div #resumeRef class="p-3 bg-white" style="transform-origin: top left; height: auto;"
+        [style.transform]="containerWidth > 0 ? 'scale(' + scale + ')' : 'none'"
+        [style.width]="containerWidth > 0 ? baseWidth + 'px' : 'auto'">
+        <div class="grid grid-cols-12 gap-8">
+            <div class="col-span-4 py-10" [style.background-color]="themeColors[0]">
+                <div class="flex flex-col items-center px-2">
+                    <div class="w-25 h-25 max-w-27.5 max-h-27.5 rounded-full flex items-center justify-center"
+                        [style.background-color]="themeColors[1]">
+                        @if(resumeData?.profileInfo?.profileImg; as url){
+                        <img [src]="url" class="w-22.5 h-22.5 rounded-full object-cover">
+                        }@else {
+                        <div class="w-22.5 h-22.5 flex items-center justify-center text-5xl rounded-full"
+                            [style.color]="themeColors[4]">
+                            <p-avatar icon="pi pi-user" size="xlarge" [style.background-color]="themeColors[1]"
+                                shape="circle" />
+                        </div>
+                        }
+                    </div>
+                    <h2 class="text-base font-bold mt-3 text-center w-full
+                     wrap-break-word">{{resumeData?.profileInfo?.fullName}}
+                    </h2>
+                    <p class="text-sm text-center">{{resumeData?.profileInfo?.designation}}</p>
+                </div>
+                <div class="my-6 mx-6">
+                    <div class="flex flex-col gap-4">
+                        <app-contactinfo iconClass="pi-map-marker" [iconBG]="themeColors[2]"
+                            [value]="resumeData?.contactInfo?.address ?? '' "></app-contactinfo>
+                        <app-contactinfo iconClass="pi-envelope" [iconBG]="themeColors[2]"
+                            [value]="resumeData?.contactInfo?.email ?? '' "></app-contactinfo>
+                        <app-contactinfo iconClass="pi-phone" [iconBG]="themeColors[2]"
+                            [value]="resumeData?.contactInfo?.phone ?? '' "></app-contactinfo>
+                        @if(resumeData?.contactInfo?.linkedin; as linkedin){
+                        <app-contactinfo iconClass="pi-linkedin" [iconBG]="themeColors[2]"
+                            [value]="linkedin"></app-contactinfo>
+                        }
+                        @if(resumeData?.contactInfo?.github; as github){
+                        <app-contactinfo iconClass="pi-github" [iconBG]="themeColors[2]"
+                            [value]="github"></app-contactinfo>
+                        }
+                        @if(resumeData?.contactInfo?.website; as website){
+                        <app-contactinfo iconClass="pi-globe" [iconBG]="themeColors[2]"
+                            [value]="website"></app-contactinfo>
+                        }
+                    </div>
+                    <div class="mt-5">
+                        <ng-container
+                            *ngTemplateOutlet="title; context: { text: 'Languages', color: themeColors[1] }"></ng-container>
+                        <app-languagesection [languages]="resumeData?.languages ?? []"></app-languagesection>
+                    </div>
+                    <div class="mt-5">
+                        <ng-container
+                            *ngTemplateOutlet="title; context: { text: 'Certifications', color: themeColors[1] }"></ng-container>
+                        @for( certification of resumeData?.certifications ; track $index ) {
+                        <app-certificationinfo [title]="certification.name" [issuer]="certification.issuer"
+                            [year]="certification.year" [bgColor]="themeColors[2]"></app-certificationinfo>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-8 pt-10 mr-10 pd-5">
+                <div>
+                    <ng-container
+                        *ngTemplateOutlet="title; context: { text: 'Professional Summary', color: themeColors[1] }"></ng-container>
+                    <p class="text-sm font-medium">{{resumeData?.profileInfo?.summary}}</p>
+                </div>
+                <div class="mt-4">
+                    <ng-container
+                        *ngTemplateOutlet="title; context: { text: 'Work Experiance', color: themeColors[1] }"></ng-container>
+                    @for ( workExperiance of resumeData?.workExperience; track $index) {
+                    <app-workexperience [role]="workExperiance.role" [company]="workExperiance.company"
+                        [durationColor]="themeColors[4]"
+                        [duration]="getDuration(workExperiance.startDate, workExperiance.endDate)"
+                        [description]="workExperiance.description"></app-workexperience>
+                    }
+                </div>
+                <div class="mt-4">
+                    <ng-container
+                        *ngTemplateOutlet="title; context: { text: 'Education', color: themeColors[1] }"></ng-container>
+                    @for (education of resumeData?.education; track $index) {
+                    <app-educationinfo [degree]="education.degree" [institution]="education.institution"
+                        [duration]="getDuration(education.startDate, education.endDate)"></app-educationinfo>
+                    }
+                </div>
+                <div class="mt-4">
+                    <ng-container
+                        *ngTemplateOutlet="title; context: { text: 'Projects', color: themeColors[1] }"></ng-container>
+                    @for( project of resumeData?.projects; track $index) {
+
+                    <app-projectinfo [title]="project.name" [description]="project.description"
+                        [github]="project.github" [liveDemo]="project.liveDemo"
+                        [bgColor]="themeColors[2]"></app-projectinfo>
+                    }
+                </div>
+                <div class="mt-4">
+                    <ng-container
+                        *ngTemplateOutlet="title; context: { text: 'Skills', color: themeColors[1] }"></ng-container>
+                    <app-skillsection [skills]="resumeData?.skills ?? []"></app-skillsection>
+                </div>
+                <div class="mt-4">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,7 +12,7 @@ const ResumeSchema = new mongoose.Schema(
     thumbnail: { type: String, default: null },
     template: { type: String, colorPalette: [String] },
     profileInfo: {
-      profliePreivewUrl: String,
+      profileImg: String,
       fullName: String,
       designation: String,
       summary: String,

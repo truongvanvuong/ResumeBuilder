@@ -1,15 +1,15 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
 import { AvatarModule } from 'primeng/avatar';
-import { TextareaModule } from 'primeng/textarea';
+
 import { ProgressBarModule } from 'primeng/progressbar';
 import { MessageModule } from 'primeng/message';
 
 import { InputField } from '../../../components/input-field/input-field';
 import { Progress } from '../../../services/progress';
-import { Textarea } from '../../../components/textarea/textarea';
+import { Editor } from '../../../components/editor/editor'
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -17,18 +17,18 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
   imports: [
     AvatarModule,
     InputField,
-    TextareaModule,
     ProgressBarModule,
     NgClass,
-    Textarea,
+    Editor,
     ReactiveFormsModule,
     MessageModule,
+
   ],
   providers: [Progress],
   templateUrl: './profileinfo.html',
   styleUrl: './profileinfo.css',
 })
-export class Profileinfo implements OnDestroy {
+export class Profileinfo {
   @Input() profileForm!: FormGroup;
   @Input() errMessage: string = '';
   previewUrl: string = '';
@@ -63,6 +63,10 @@ export class Profileinfo implements OnDestroy {
       URL.revokeObjectURL(previvewUrl);
     }
     this.previewUrl = '';
+    this.profileForm.patchValue({
+      profileImg: '',
+      previewUrl: ''
+    });
   }
   uploadToServer(file: File) {
     this.uploading = true;
@@ -87,21 +91,14 @@ export class Profileinfo implements OnDestroy {
     await this.progressService.startProgress(10); // Chờ progress chạy từ 10 → 100%
     this.previewUrl = URL.createObjectURL(file);
 
-    try {
-      await this.uploadToServer(file); // Upload thật (nếu có API)
-      // Nếu upload xong → có thể set uploadedUrl
-    } catch (error) {
-      console.error('Upload lỗi:', error);
-      alert('Tải lên thất bại!');
-    } finally {
-      this.progressService.hide();
-      this.uploading = false;
-    }
+    this.profileForm.patchValue({
+      profileImg: this.previewUrl,
+      previewUrl: this.previewUrl
+    });
+    this.uploading = false;
+    this.progressService.hide();
   }
 
-  ngOnDestroy(): void {
-    if (this.previewUrl) {
-      URL.revokeObjectURL(this.previewUrl);
-    }
-  }
+
+
 }

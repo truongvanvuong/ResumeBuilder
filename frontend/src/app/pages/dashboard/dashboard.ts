@@ -12,12 +12,11 @@ import moment from 'moment';
 import { InputField } from '../../components/input-field/input-field';
 import { Resumecard } from '../../components/resumecard/resumecard';
 import { Resume as ResumeService } from '../../services/resume';
-import { GetResumesResponse, ResumeResponse } from '../../types/Resumes';
-import { Avatar } from 'primeng/avatar';
+import { GetResumesResponse, ResumeResponse } from '../../types/resumes';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [Resumecard, Dialog, InputField, FormsModule, InputTextModule, ButtonModule, Avatar],
+  imports: [Resumecard, Dialog, InputField, FormsModule, InputTextModule, ButtonModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
@@ -38,7 +37,7 @@ export class Dashboard implements OnInit, OnDestroy {
   constructor(
     private resumeService: ResumeService,
     private messageService: MessageService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.isLoading = true;

@@ -1,4 +1,4 @@
-import { Education } from './../../../types/Resumes';
+import { Education } from '../../../types/resumes';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Button } from 'primeng/button';

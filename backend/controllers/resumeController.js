@@ -11,7 +11,6 @@ const createResume = async (req, res) => {
     const defaultResumeData = {
       profileInfo: {
         profileImg: null,
-        previewUrl: "",
         fullName: "",
         designation: "",
         summary: "",
@@ -95,7 +94,7 @@ const createResume = async (req, res) => {
 const getUserResumes = async (req, res) => {
   try {
     const resumes = await Resume.find({ userId: req.user._id }).sort({
-      updateAt: -1,
+      updated_at: -1,
     });
     res.json(resumes);
   } catch (error) {
@@ -158,21 +157,21 @@ const deleteResume = async (req, res) => {
         .status(404)
         .json({ message: "Resume not found or unauthorized" });
     }
-    //Delete thumbnailLink and profilePreviewUrl images from upload folder
+    //Delete thumbnail and profileImg images from upload folder
     const uploadsFolder = path.join(__dirname, "..", "uploads");
     const baseUrl = `${req.protocol}://${req.get("host")}`;
 
-    if (resume.thumbnailLink) {
+    if (resume.thumbnail) {
       const oldThumbnail = path.join(
         uploadsFolder,
-        path.basename(resume.thumbnailLink),
+        path.basename(resume.thumbnail),
       );
       if (fs.existsSync(oldThumbnail)) fs.unlinkSync(oldThumbnail);
     }
-    if (resume.profileInfo?.profilePreviewUrl) {
+    if (resume.profileInfo?.profileImg) {
       const oldProfile = path.join(
         uploadsFolder,
-        path.basename(resume.profileInfo.profilePreviewUrl),
+        path.basename(resume.profileInfo.profileImg),
       );
       if (fs.existsSync(oldProfile)) fs.unlinkSync(oldProfile);
     }

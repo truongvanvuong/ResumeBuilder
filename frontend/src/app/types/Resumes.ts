@@ -1,7 +1,6 @@
 // Thông tin cơ bản của profile
 export interface ProfileInfo {
   profileImg: string;
-  previewUrl: string;
   fullName: string;
   designation: string;
   summary: string;
@@ -40,7 +39,7 @@ export interface Education {
 // Kỹ năng
 export interface Skill {
   name: string;
-  level?: string;
+  level: string;
   _id: string;
 }
 

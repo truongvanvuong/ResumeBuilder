@@ -1,0 +1,16 @@
+<div class="mb-5">
+    <h3 class="font-semibold text-gray-900" [class.text-xs]="isPreview" [class.text-base]="!isPreview">
+        {{name}}
+    </h3>
+    <p class="text-sm text-gray-700 font-medium mt-1">
+        {{description}}
+    </p>
+    <div class="flex items-center gap-3 mt-2">
+        @if(github) {
+        <app-actionlink title="Github" [link]="github"></app-actionlink>
+        }
+        @if(liveDemo) {
+        <app-actionlink title="Demo" [link]="liveDemo"></app-actionlink>
+        }
+    </div>
+</div>

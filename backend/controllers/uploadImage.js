@@ -37,30 +37,30 @@ const uploadResumeImages = async (req, res) => {
 
         // If new thumbnail uploaded, delete old one
         if (newThumbnail) {
-          if (resume.thumbnailLink) {
+          if (resume.thumbnail) {
             const oldThumbnail = path.join(
               uploadsFolder,
-              path.basename(resume.thumbnailLink),
+              path.basename(resume.thumbnail),
             );
             if (fs.existsSync(oldThumbnail)) fs.unlinkSync(oldThumbnail);
           }
-          resume.thumbnailLink = `${baseUrl}/uploads/${newThumbnail.filename}`;
+          resume.thumbnail = `${baseUrl}/uploads/${newThumbnail.filename}`;
         }
         if (newProfileImage) {
-          if (resume.profileInfo?.profilePreviewUrl) {
+          if (resume.profileInfo?.profileImg) {
             const oldProfile = path.join(
               uploadsFolder,
-              path.basename(resume.profileInfo.profilePreview),
+              path.basename(resume.profileInfo.profileImg),
             );
             if (fs.existsSync(oldProfile)) fs.unlinkSync(oldProfile);
           }
-          resume.profileInfo.profilePreviewUrl = `${baseUrl}/uploads/${newProfileImage.filename}`;
+          resume.profileInfo.profileImg = `${baseUrl}/uploads/${newProfileImage.filename}`;
         }
         await resume.save();
         res.status(200).json({
           message: "Images uploaded successfully",
-          thumbnailLink: resume.thumbnailLink,
-          profilePreviewUrl: resume.profileInfo.profilePreviewUrl,
+          thumbnail: resume.thumbnail,
+          profileImg: resume.profileInfo.profileImg,
         });
       },
     );

@@ -3,8 +3,8 @@ import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { User } from './user';
-import { GetResumesResponse } from '../types/Resumes';
-import { ResumeResponse, Resume as ResumeType } from '../types/Resumes';
+import { GetResumesResponse } from '../types/resumes';
+import { ResumeResponse, Resume as ResumeType } from '../types/resumes';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class Resume {
   constructor(
     private http: HttpClient,
     private user: User,
-  ) {}
+  ) { }
 
   /**
    * Fetch all resumes from API

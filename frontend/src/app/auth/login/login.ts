@@ -35,7 +35,7 @@ export class Login {
   constructor(
     private UserServices: User,
     private messageService: MessageService,
-  ) {}
+  ) { }
 
   resetForm() {
     this.user = { email: '', password: '' };
@@ -97,7 +97,7 @@ export class Login {
             this.pendingToast = {
               severity: 'error',
               summary: 'Error',
-              detail: message,
+              detail: 'Server error',
             };
           },
         });

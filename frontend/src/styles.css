@@ -1,7 +1,8 @@
 @import 'tailwindcss';
 @import 'primeicons/primeicons.css';
 @import 'animate.css';
-
+@import "../node_modules/quill/dist/quill.core.css";
+@import "../node_modules/quill/dist/quill.snow.css";
 @theme {
   --font-display: 'Urbanist', sans-serif;
   --breakpoint-3xl: 1920px;

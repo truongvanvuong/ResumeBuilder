@@ -4,13 +4,13 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { MessageModule } from 'primeng/message';
 
 import { InputField } from '../../../components/input-field/input-field';
-import { Textarea } from '../../../components/textarea/textarea';
+import { Editor } from '../../../components/editor/editor';
 import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-workexperience',
   imports: [
     InputField,
-    Textarea,
+    Editor,
     ButtonModule,
     DatePickerModule,
     MessageModule,
