@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, AfterViewInit } from '@angular/core';
+
 import { FormsModule, NgForm } from '@angular/forms';
 
 import { MessageService } from 'primeng/api';
@@ -6,9 +7,13 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 
+import { environment } from 'src/environments/environment.prod';  
+
 import { InputField } from '../../components/input-field/input-field';
 import { User } from '../../services/user';
 import { finalize } from 'rxjs';
+
+declare const google: any;
 
 @Component({
   selector: 'app-login',
@@ -16,7 +21,8 @@ import { finalize } from 'rxjs';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {
+export class Login implements AfterViewInit {
+
   isSubmitted: boolean = false;
   isLoading: boolean = false;
   private pendingSuccess: boolean = false;
@@ -36,7 +42,61 @@ export class Login {
     private UserServices: User,
     private messageService: MessageService,
   ) { }
+  ngAfterViewInit(): void {
+    this.initGoogleBtn();
+  }
 
+  private initGoogleBtn(): void {
+    let retryCount = 0;
+    // Kiểm tra mỗi 100ms để đợi Dialog mở xong và thẻ div đã xuất hiện trong DOM
+    const interval = setInterval(() => {
+      const btn = document.getElementById('google-signin-btn');
+      if (typeof google !== 'undefined' && btn) {
+        clearInterval(interval);
+        
+        google.accounts.id.initialize({
+          client_id: environment.googleClientId,
+          callback: (res: any) => this.handleGoogleLogin(res),
+        });
+
+        google.accounts.id.renderButton(btn, {
+          theme: 'outline',
+          size: 'large',
+          text: 'signin_with',
+          shape: 'rectangular',
+        });
+      }
+
+      // Giới hạn thử tối đa 20 lần (2 giây) tránh chạy vô tận
+      retryCount++;
+      if (retryCount > 20) {
+        clearInterval(interval);
+      }
+    }, 100);
+  }
+
+
+handleGoogleLogin(response : any){
+  if(response.credential) {
+    this.isLoading = true
+  }
+  this.UserServices.loginWithGoogle(response.credential).subscribe({
+    next: (res) => {
+        if (res?.success) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Thành công',
+            detail: 'Đăng nhập Google thành công',
+            life: 1500,
+          });
+          this.loginCloseDialog.emit();
+          this.resetForm();
+        }
+        this.isLoading = false;
+      },
+      
+  })
+}
   resetForm() {
     this.user = { email: '', password: '' };
     this.isSubmitted = false;

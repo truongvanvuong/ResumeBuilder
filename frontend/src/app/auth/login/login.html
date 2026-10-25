@@ -1,38 +1,19 @@
-<div>
+<div class="flex flex-col gap-4">
   <span class="text-md text-slate-800">Please enter your details to login</span>
-  <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" class="my-6 flex flex-col" novalidate>
+  <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" class="mt-4 flex flex-col" novalidate>
     <div class="flex flex-col gap-4 my-input">
-      <app-input-field
-        label="Email"
-        name="email"
-        type="email"
-        placeholder="Enter your email"
-        [(ngModel)]="user.email"
-        [submitted]="isSubmitted"
-        [required]="true"
-      ></app-input-field>
+      <app-input-field label="Email" name="email" type="email" placeholder="Enter your email" [(ngModel)]="user.email"
+        [submitted]="isSubmitted" [required]="true"></app-input-field>
 
-      <app-input-field
-        label="Password"
-        name="password"
-        type="password"
-        placeholder="Enter your password"
-        [required]="true"
-        [(ngModel)]="user.password"
-        [submitted]="isSubmitted"
-      ></app-input-field>
+      <app-input-field label="Password" name="password" type="password" placeholder="Enter your password"
+        [required]="true" [(ngModel)]="user.password" [submitted]="isSubmitted"></app-input-field>
     </div>
     <div class="card flex justify-center mt-5 my-button">
-      <p-button
-        [label]="isLoading ? 'Signing in...' : 'LOGIN'"
-        [loading]="isLoading"
-        [disabled]="isLoading"
-        fluid
-        type="submit"
-        class="w-full"
-      />
+      <p-button [label]="isLoading ? 'Signing in...' : 'LOGIN'" [loading]="isLoading" [disabled]="isLoading" fluid
+        type="submit" class="w-full" />
     </div>
   </form>
+  <div class="text-center w-full" id="google-signin-btn"></div>
   <div class="flex items-center justify-center gap-1 my-button-link">
     <p>Don't have an account?</p>
     <p-button label="Signup" link (onClick)="onSignupClick($event)" />

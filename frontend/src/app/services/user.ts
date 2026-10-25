@@ -6,6 +6,8 @@ import { UserRegister, ApiAuthResponse, UserLogin } from '../types/user';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 
+declare const google: any;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,6 +22,18 @@ export class User {
   constructor(private http: HttpClient, private router: Router) {}
   register(user: UserRegister): Observable<ApiAuthResponse> {
     return this.http.post<ApiAuthResponse>(`${this.apiUrl}/auth/register`, user).pipe(
+      tap((res) => {
+        const { id, name, email, avatar, token } = (res.data || {}) as any;
+        if (res.success && token) {
+          this.setToken(token);
+          const currentUser: CurrentUser = { id, name, email, avatar };
+          this.setCurrentUser(currentUser);
+        }
+      })
+    );
+  }
+  loginWithGoogle(idToken: string): Observable<ApiAuthResponse> {
+    return this.http.post<ApiAuthResponse>(`${this.apiUrl}/auth/google`, { idToken }).pipe(
       tap((res) => {
         const { id, name, email, avatar, token } = (res.data || {}) as any;
         if (res.success && token) {
@@ -106,6 +120,9 @@ export class User {
   logout(redirect = true) {
     this.setToken(null);
     this.setCurrentUser(null);
+     if (typeof google !== 'undefined') {
+      google.accounts.id.disableAutoSelect();
+    }
     if (redirect) {
       try {
         this.router.navigate(['/']);

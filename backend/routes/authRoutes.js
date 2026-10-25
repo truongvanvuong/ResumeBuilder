@@ -3,12 +3,14 @@ import {
   loginUser,
   registerUser,
   getUserProfile,
+  googleLogin
 } from "../controllers/authController.js";
 import protect from "../middlewares/authMiddleware.js";
 import upload from "../middlewares/uploadMiddleware.js";
 const router = express.Router();
 
 router.post("/login", loginUser);
+router.post("/google", googleLogin);
 router.post("/register", registerUser);
 router.get("/profile", protect, getUserProfile);
 
